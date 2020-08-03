@@ -20,11 +20,7 @@ fetch(TRAINERS_URL)
     const trainerUl = document.querySelector(`[data-trainer-ul-id='${trainer.id}']`);
     trainer.pokemons.forEach(pokemon => {
       const pokeHTML = `
-<<<<<<< HEAD
       <li>${pokemon.nickname} (${pokemon.species}) 
-=======
-      <li>${pokemon.nickname} (${pokemon.species})
->>>>>>> 9d5049cde06165cefeeaacdbe02fcb2133a25c20
         <button class="release" data-pokemon-id=${pokemon.id}>
           Release
         </button>
@@ -33,11 +29,7 @@ fetch(TRAINERS_URL)
       trainerUl.insertAdjacentHTML('beforeend', pokeHTML);
     })
   })
-<<<<<<< HEAD
 }); 
-=======
-});
->>>>>>> 9d5049cde06165cefeeaacdbe02fcb2133a25c20
 
 // EVENT DELEGATION:
 trainersContainer.addEventListener('click', (e) => {
@@ -57,20 +49,12 @@ trainersContainer.addEventListener('click', (e) => {
       .then(resp => resp.json())
       .then(newPokemon => {
         const pokeHTML = `
-<<<<<<< HEAD
         <li>${newPokemon.nickname} (${newPokemon.species}) 
-=======
-        <li>${newPokemon.nickname} (${newPokemon.species})
->>>>>>> 9d5049cde06165cefeeaacdbe02fcb2133a25c20
           <button class="release" data-pokemon-id=${newPokemon.id}>
             Release
           </button>
         </li>`;
-<<<<<<< HEAD
   
-=======
-
->>>>>>> 9d5049cde06165cefeeaacdbe02fcb2133a25c20
         trainerUl.insertAdjacentHTML('beforeend', pokeHTML);
       })
     }
@@ -84,8 +68,4 @@ trainersContainer.addEventListener('click', (e) => {
     .then(() => e.target.parentNode.remove());
   }
 
-<<<<<<< HEAD
 })
-=======
-})
->>>>>>> 9d5049cde06165cefeeaacdbe02fcb2133a25c20
