@@ -1,3 +1,4 @@
+require'pry'
 class PokemonsController < ApplicationController
     def index
         pokemons = Pokemon.all
@@ -10,7 +11,7 @@ class PokemonsController < ApplicationController
     end
 
     def create
-        trainer = Trainer.find_by_id(params["trainerId"])
+        trainer = Trainer.find_by_id(params[:trainer_id])
         name = Faker::Name.first_name
         species = Faker::Games::Pokemon.name
         pokemon = trainer.pokemons.build(nickname: name, species: species)
