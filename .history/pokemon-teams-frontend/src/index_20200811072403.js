@@ -14,19 +14,9 @@ let displayTeams = (json) => {
         // debugger;
         let button = document.createElement('button');
         button.setAttribute('data-trainer-id', trainer.id);
-        button.innerText = "Add Pokemon"
         button.addEventListener('click', (e)=>{
-            // fetch new pokemon
-            let dataToSend = {trainerId: e.target.dataset.trainerId}; 
-            let configObj = {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(dataToSend)
-            }
-            fetch(`${POKEMONS_URL}`, configObj)
+            // get trainer id
+            // use faker to create new pokemon and add to trainers card
         });
         div.appendChild(button);
         //create list of pokemon 
@@ -38,28 +28,19 @@ let displayTeams = (json) => {
             let release = document.createElement('button'); 
             release.className = 'release';
             release.setAttribute('data-pokemon-id' , p.id);
-            release.innerText = 'Release';
             release.addEventListener('click', (e)=>{
-                // delete pokemon fetch delete
-                let poke2Delete = {pokeId: e.target.dataset.pokemonId};
-                let configObj = {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type':'application/json',
-                        'Accept':'application/json'
-                    },
-                    body: JSON.stringify(poke2Delete)
-                };
-                fetch(`${POKEMONS_URL}/${e.target.dataset.pokemonId}`,configObj);
-            });
+                // set pokemon free
+                // remove pokemon from trainer card 
+                // patch trainer to DELETE pokemon
+            })
             li.appendChild(release);
             pl.appendChild(li);
-        };
+        }
         // append list to div
         div.appendChild(pl);
         // append card to main element
         main.appendChild(div);
-    };
+    }
 }
 
-fetch(TRAINERS_URL).then(resp => resp.json()).then(json => displayTeams(json));
+fetch('http://localhost:3000/trainers').then(resp => resp.json()).then(json => displayTeams(json)); 

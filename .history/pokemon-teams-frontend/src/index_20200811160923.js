@@ -16,17 +16,28 @@ let displayTeams = (json) => {
         button.setAttribute('data-trainer-id', trainer.id);
         button.innerText = "Add Pokemon"
         button.addEventListener('click', (e)=>{
+            // make new pokemon to send to post to trainer/:id
             // fetch new pokemon
-            let dataToSend = {trainerId: e.target.dataset.trainerId}; 
-            let configObj = {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(dataToSend)
-            }
-            fetch(`${POKEMONS_URL}`, configObj)
+            // console.log(e.target.dataset.trainerId);
+            fetch(`${POKEMONS_URL}/create`, { trainerId: e.target.dataset.trainerId })
+
+            // add pokemons info to current cards team
+            // let newPokemon = Pokemon.create(nickname: Faker::Name.first_name, species: Faker::Games::Pokemon.name, trainer_id: e.target.dataset.id)
+
+            // let whatToChange = {
+            //     nickname: name,
+            //     species: species,
+            //     trainer_id: e.target.dataset.id
+            // }
+            // let configObj = {
+            //     method: 'post',
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(whatToChange)
+            // }
+            
+            // fetch(`${TRAINERS_URL}${e.target.dataset.id}`, configObj)
         });
         div.appendChild(button);
         //create list of pokemon 
@@ -40,26 +51,18 @@ let displayTeams = (json) => {
             release.setAttribute('data-pokemon-id' , p.id);
             release.innerText = 'Release';
             release.addEventListener('click', (e)=>{
-                // delete pokemon fetch delete
-                let poke2Delete = {pokeId: e.target.dataset.pokemonId};
-                let configObj = {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type':'application/json',
-                        'Accept':'application/json'
-                    },
-                    body: JSON.stringify(poke2Delete)
-                };
-                fetch(`${POKEMONS_URL}/${e.target.dataset.pokemonId}`,configObj);
-            });
+                // set pokemon free
+                // remove pokemon from trainer card 
+                // patch trainer to DELETE pokemon
+            })
             li.appendChild(release);
             pl.appendChild(li);
-        };
+        }
         // append list to div
         div.appendChild(pl);
         // append card to main element
         main.appendChild(div);
-    };
+    }
 }
 
 fetch(TRAINERS_URL).then(resp => resp.json()).then(json => displayTeams(json));

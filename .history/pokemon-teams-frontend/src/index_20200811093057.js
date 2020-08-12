@@ -16,17 +16,24 @@ let displayTeams = (json) => {
         button.setAttribute('data-trainer-id', trainer.id);
         button.innerText = "Add Pokemon"
         button.addEventListener('click', (e)=>{
-            // fetch new pokemon
-            let dataToSend = {trainerId: e.target.dataset.trainerId}; 
+            // make new pokemon to send to post to trainer/:id
+            let name = Faker::Name.first_name;
+            let species = Faker::Games::Pokemon.name;
+            debugger;
+            let whatToChange = {
+                nickname: name,
+                species: species,
+                trainer_id: e.target.dataset.id
+            }
             let configObj = {
                 method: 'post',
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
                 },
-                body: JSON.stringify(dataToSend)
+                body: JSON.stringify(whatToChange)
             }
-            fetch(`${POKEMONS_URL}`, configObj)
+            
+            fetch(`http://localhost:3000/trainers/${e.target.data-trainer-id}`, configObj)
         });
         div.appendChild(button);
         //create list of pokemon 
@@ -40,26 +47,18 @@ let displayTeams = (json) => {
             release.setAttribute('data-pokemon-id' , p.id);
             release.innerText = 'Release';
             release.addEventListener('click', (e)=>{
-                // delete pokemon fetch delete
-                let poke2Delete = {pokeId: e.target.dataset.pokemonId};
-                let configObj = {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type':'application/json',
-                        'Accept':'application/json'
-                    },
-                    body: JSON.stringify(poke2Delete)
-                };
-                fetch(`${POKEMONS_URL}/${e.target.dataset.pokemonId}`,configObj);
-            });
+                // set pokemon free
+                // remove pokemon from trainer card 
+                // patch trainer to DELETE pokemon
+            })
             li.appendChild(release);
             pl.appendChild(li);
-        };
+        }
         // append list to div
         div.appendChild(pl);
         // append card to main element
         main.appendChild(div);
-    };
+    }
 }
 
-fetch(TRAINERS_URL).then(resp => resp.json()).then(json => displayTeams(json));
+fetch('http://localhost:3000/trainers').then(resp => resp.json()).then(json => displayTeams(json)); 

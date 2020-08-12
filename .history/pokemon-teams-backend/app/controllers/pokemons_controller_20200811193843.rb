@@ -5,6 +5,6 @@ class PokemonsController < ApplicationController
         newPoke = Pokemon.create(nickname: name, species: species, trainer_id: params[:trainerId])
     end
     def destroy
-        Pokemon.find_by(id: params[:pokeId]).destroy
+        Pokemon.find_by(params[:pokeId]).destroy
     end
 end

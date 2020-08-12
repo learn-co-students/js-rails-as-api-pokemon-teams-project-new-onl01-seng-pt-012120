@@ -50,7 +50,7 @@ let displayTeams = (json) => {
                     },
                     body: JSON.stringify(poke2Delete)
                 };
-                fetch(`${POKEMONS_URL}/${e.target.dataset.pokemonId}`,configObj);
+                fetch(`${POKEMONS_URL}/${e.target.dataset.pokemonId}`);
             });
             li.appendChild(release);
             pl.appendChild(li);
