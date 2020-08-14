@@ -86,5 +86,3 @@ const loadTrainers = () => {
      fetch('${POKEMONS_URL}/${e.target.dataset.pokemonId}'. configObj)
      e.target.parentElement.remove()
   }
-
-
