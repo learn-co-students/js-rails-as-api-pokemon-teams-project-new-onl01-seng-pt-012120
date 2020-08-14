@@ -16,8 +16,13 @@ class PokemonsController < ApplicationController
       species: Faker::Games::Pokemon.name
     })
     
-      render json: pokemon.save ? {message: pokemon.errors.messages[:team_max][0]} 
+     if pokemon.save 
+        render json: pokemon
+     else render 
+        render json: {message: pokemon.errors.messages[:team_max][0]}
+     end 
   end 
+
 
   def destroy
     pokemon = Pokemon.find(params[:id])
